@@ -1,0 +1,146 @@
+<ion-header>
+  <ion-toolbar color="primary">
+  <ion-segment  [(ngModel)]="whichsegment">
+    <ion-segment-button value="receive">
+      <ion-label > Receive gifts </ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="messages">
+      <ion-label > Messages </ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+
+
+
+<ion-content>
+<div *ngIf="whichsegment == 'receive'">
+    <ion-card >
+      <ion-card-header>
+      <ion-card-title>
+     Wallet details
+      </ion-card-title>
+      </ion-card-header>
+      <ion-card-content >
+       <ion-item>
+         <ion-label text-wrap>  <h4> Wallet address  </h4>
+         <p> {{walletaddress}}  </p> </ion-label>
+       </ion-item>
+
+       <ion-item>
+         <ion-label > <h4> Wallet balance  </h4>
+         <h4 *ngIf="walletbalance"> Confirmed: {{walletbalance.balanceSat}} </h4> 
+         <p *ngIf="walletbalance"> Unconfirmed : {{walletbalance.unconfirmedBalance}} </p> </ion-label>
+       </ion-item>
+ <ion-button fill="clear" size="small" color="primary" (click)="gettestnetbalance()"> Check balance </ion-button>
+
+
+      </ion-card-content >
+    </ion-card >
+
+
+
+
+    <ion-card class="datainput">
+      <ion-card-header>
+      <ion-card-title>
+     Receive Gift from payment message
+      </ion-card-title>
+      </ion-card-header>
+      <ion-card-content >
+            <ion-item>
+         <ion-label position="stacked"> Enter unlock message below </ion-label>
+            <ion-textarea rows="8" text-wrap type="text" [(ngModel)]="revertible.message"
+                          placeholder="Enter unlock message "></ion-textarea>
+            </ion-item>
+
+
+            <ion-item>
+         <ion-label position="stacked"> Enter Unlock PIN below </ion-label>
+         <ion-input  [(ngModel)]="revertible.pin" placeholder="Enter Unlock PIN "></ion-input>
+           </ion-item>
+      <ion-button fill="clear" size="small" color="primary" (click)="consumetestnetmessage()"> Accept gifts </ion-button>
+
+      </ion-card-content>
+    </ion-card>
+      <ion-item >
+      </ion-item >
+
+    <ion-card class="datainput">
+      <ion-card-header>
+      <ion-card-title>
+     Status of transaction will be displayed below 
+      </ion-card-title>
+      </ion-card-header>
+
+      <ion-item >
+     Transaction output:  {{transacted.txid}}
+      </ion-item>
+      <ion-item >
+     Amount : {{transacted.amount}}
+      </ion-item>
+      <ion-item >
+     <h4> From address : {{transacted.fromaddress}} </h4>
+      </ion-item >
+      <ion-item >
+<h4>      To address : {{transacted.toaddress}} </h4>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+      <ion-card-title>
+     Income potential for developers, solution providers
+      </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+  <ion-label>
+  <h4>
+  1)   As a service provider, you can choose percentage of user-transaction as your fees. This will be your income. This can be set upon SIGNUP.
+  </h4>
+  <ion-item-divider>
+  </ion-item-divider>
+  <h4>
+2) To signup send email to puppipay01@gmail.com
+  </h4>
+  <ion-item-divider>
+  </ion-item-divider>
+  <h4>
+3) PuppiPay is a product of Belavadi Technology Solutions. All Rights Reserved.
+  </h4>
+ <ion-item-divider>
+  </ion-item-divider>
+
+  <h4>
+4) Subject to various limitations, terms and conditions. 
+  </h4>
+
+  </ion-label>
+      </ion-card-content>
+    </ion-card>
+
+</div>
+
+<div *ngIf="whichsegment == 'messages'">
+  <ion-item *ngIf="receivedmessages.length == 0" >
+  No messages
+    </ion-item  >
+
+ <ion-list>
+
+    <ion-item *ngFor="let msg of receivedmessages" >
+          <ion-label  text-wrap>
+            <h3> Greeting :          {{msg.message}} </h3>
+            <h3> Message:          {{msg.message}} </h3>
+            <h4> To address:          {{msg.target}} </h4>
+            <p>
+          PIN: {{msg.pin }}
+            </p>
+       </ion-label>
+    </ion-item>
+
+ </ion-list>
+</div>
+
+</ion-content>
