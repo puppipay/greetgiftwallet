@@ -10,7 +10,7 @@
       <ion-label > Greet & Gift </ion-label>
     </ion-segment-button>
     <ion-segment-button value="messages">
-      <ion-label > Greeting Messages </ion-label>
+      <ion-label > Greeting Contracts </ion-label>
     </ion-segment-button>
   </ion-segment>
   </ion-toolbar>
@@ -79,14 +79,14 @@
     <ion-card class="datainput">
       <ion-card-header>
       <ion-card-title>
-     Message/PIN to access gifted fund
+     Greeting contract/PIN to access gifted fund
       </ion-card-title>
       </ion-card-header>
       <ion-card-content >
             <ion-item>
-         <ion-label position="stacked"> Message </ion-label>
+         <ion-label position="stacked"> Greeting contract </ion-label>
             <ion-textarea rows="4" text-wrap type="text" [(ngModel)]="issued.message"
-                 placeholder=" Message "></ion-textarea>
+                 placeholder=" Greeting contract "></ion-textarea>
             </ion-item>
 
 
@@ -118,7 +118,7 @@
     <ion-item *ngFor="let msg of sendingmessages" >
           <ion-label  text-wrap>
             <h3> Greeting:          {{msg.message}} </h3>
-            <h3> Message:          {{msg.message}}
+            <h3> Greeting contract:          {{msg.message}}
   </h3>
             <h4> Greeting Address:          {{msg.address}}
   </h4>
