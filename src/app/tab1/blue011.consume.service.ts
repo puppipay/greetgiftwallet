@@ -128,6 +128,30 @@ export class Blue011ConsumeService {
 
   }
 
+   verifygreeting(txid: string, network: string): any {
+
+     var url ;
+
+     if(network == 'testnet') {
+        url = 'https://testnet-insight.dashevo.org/insight-api/tx/';
+     }
+     else {
+        url = 'https://insight.dashevo.org/insight-api/tx/';
+     }
+
+     return new Promise((resolve, reject) => {
+
+
+     this.http.get(url+txid).subscribe(res => {
+                let data = res.json();
+                resolve(data);
+        }, (err) => {
+          reject(err);
+        });
+    });
+
+
+  }
 
 
 }

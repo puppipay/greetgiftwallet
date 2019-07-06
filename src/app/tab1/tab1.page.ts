@@ -22,6 +22,8 @@ public walletwif: any;
 public toaddress: string;
 public toamount: number;
 public receivedmessages = [];
+verifiedgreeting : string;
+verifytxid : string;
 
 public whichsegment = "receive";
 
@@ -97,6 +99,22 @@ loadwalletwif() {
       this.wiftoaddress() ;
         }
      });
+
+}
+
+verifygreeting() {
+
+    this.blue011consume.verifygreeting(this.verifytxid, "testnet").then(res => {
+
+     alert(JSON.stringify(res));
+     var scriptsig = res.vin[0].scriptSig;
+     var bufscript = dashcore.util.buffer.hexToBuffer(scriptsig.hex);
+//     JSON.parse();
+     var str1 = bufscript.toString('ascii');
+     var index = str1.indexOf('}');
+     this.verifiedgreeting = str1.substring(index + 1);
+
+    });
 
 }
 
