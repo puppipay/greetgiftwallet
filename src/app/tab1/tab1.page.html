@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="primary">
   <ion-title> 
-	Gift King
+	Gift King (Greet and Gift)
   </ion-title> 
   <ion-buttons slot="end">
          <ion-button (click)="clear()">
@@ -42,8 +42,8 @@
            </ion-item>
       <ion-button fill="clear" size="small" color="primary" (click)="verifygreeting()"> Verify greeting </ion-button>
            <ion-item>
-  <ion-label>
-   Greeting : {{verifiedgreeting }}
+  <ion-label *ngIf="verifiedgreeting" >
+   Greeting on Blockchain is: {{verifiedgreeting }}
   </ion-label>
            </ion-item>
       </ion-card-content>
@@ -77,6 +77,7 @@
       </ion-card-content>
     </ion-card>
       <ion-item >
+     Greeting :  {{transacted.greeting}}
       </ion-item >
 
     <ion-card class="datainput"  >

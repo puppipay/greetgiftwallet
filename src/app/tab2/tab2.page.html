@@ -36,7 +36,6 @@
 
     <ion-item *ngFor="let msg of senttransactions" >
           <ion-label  text-wrap>
-            <h3> Greeting:          {{msg.fromaddress}} </h3>
             <h3> From Address:          {{msg.fromaddress}} </h3>
             <h4> To Address:          {{msg.toaddress}}
   </h4>
@@ -57,7 +56,7 @@
 
     <ion-item *ngFor="let msg of receivedtransactions" >
           <ion-label  text-wrap>
-            <h3> Greeting :          {{msg.fromaddress}} </h3>
+            <h3> Greeting :          {{msg.greeting}} </h3>
             <h3> From Address:          {{msg.fromaddress}} </h3>
             <h4> To Address:          {{msg.toaddress}}
   </h4>

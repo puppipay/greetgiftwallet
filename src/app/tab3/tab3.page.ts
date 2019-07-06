@@ -24,7 +24,6 @@ public walletwif: any;
 public toaddress: string;
 public greetingtomake: string;
 public toamount: number;
-public torevertamount: number;
 public txid: string;
 
 
@@ -62,6 +61,7 @@ loadwalletwif() {
 clear() {
   var empty = []
   this.storage.set('issuesendinggreetings',empty);
+  this.loadsendinggreetings() ;
 }
 
 ionViewWillEnter() {
@@ -100,7 +100,7 @@ generatetestnet() {
         //alert("Issue failed");
       }
    }, (err)=> {
-     alert (err)
+     alert (err._body)
    });
 
 }
@@ -171,7 +171,6 @@ senddirectpayment() {
  var utxo = data;
  var privatekey = dashcore.PrivateKey.fromWIF(this.walletwif);
  var changeaddress = this.walletaddress;
-
     var tx = this.blue022issue.createtransaction(utxo, privatekey,changeaddress, this.toaddress, Number(this.toamount),fees ) ;
 
     this.blue022issue.broadcast(tx.toString('hex')).then((res: any) => {
@@ -203,7 +202,7 @@ sendpayment() {
  var privatekey = dashcore.PrivateKey.fromWIF(this.walletwif);
  var changeaddress = this.walletaddress;
 
-    var tx = this.blue022issue.createtransaction(utxo, privatekey,changeaddress, this.issued.address, Number(this.torevertamount),fees ) ;
+    var tx = this.blue022issue.createtransaction(utxo, privatekey,changeaddress, this.issued.address, Number(this.toamount),fees ) ;
 
     this.blue022issue.broadcast(tx.toString('hex')).then((res: any) => {
       if(res) {
@@ -212,7 +211,7 @@ sendpayment() {
             txid: this.txid,
             fromaddress: this.walletaddress,
             toaddress: this.issued.address,
-            amount: Number(this.torevertamount),
+            amount: Number(this.toamount),
             fees: fees
         };
 

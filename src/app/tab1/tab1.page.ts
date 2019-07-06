@@ -65,6 +65,7 @@ ngOnInit() {
 clear() {
   var empty = [];
   this.storage.set('receivedgreetings',empty);
+  this.loadreceivedgreetings() ;
 
 }
 
@@ -113,14 +114,18 @@ verifygreeting() {
 
     this.blue022consume.verifygreeting(this.verifytxid, "testnet").then(res => {
 
-     alert(JSON.stringify(res));
+//     alert(JSON.stringify(res));
      var scriptsig = res.vin[0].scriptSig;
      var bufscript = dashcore.util.buffer.hexToBuffer(scriptsig.hex);
 //     JSON.parse();
      var str1 = bufscript.toString('ascii');
      var index = str1.indexOf('}');
      var index2 = str1.indexOf('__');
+     if(index2 > index) {
      this.verifiedgreeting = str1.substring(index + 1, index2);
+     } else {
+     this.verifiedgreeting = str1.substring(index + 1);
+     }
 
     });
 
