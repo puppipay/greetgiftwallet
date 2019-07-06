@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Http, Headers } from '@angular/http';
-import { Blue011ConsumeService } from '../tab1/blue011.consume.service';
+import { Blue022ConsumeService } from '../tab1/blue022.consume.service';
 
 declare var dashcore;
 
@@ -17,7 +17,7 @@ testnetaddressbalance : any;
 url: string;
 
 constructor(public http: Http, 
-         private blue011consume: Blue011ConsumeService,
+         private blue022consume: Blue022ConsumeService,
 	public storage: Storage) {
 
     this.loadwalletwif() ;
@@ -67,7 +67,7 @@ if(!this.walletaddress) {
  return;
 }
 
- this.blue011consume.getBalance(this.walletaddress, "testnet").then((data: any) => {
+ this.blue022consume.getBalance(this.walletaddress, "testnet").then((data: any) => {
       if(data != null)
       {
         this.testnetaddressbalance = data;

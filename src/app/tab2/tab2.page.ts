@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { Blue011ConsumeService } from '../tab1/blue011.consume.service';
-import { Blue011IssueService } from '../tab3/blue011.issue.service';
+import { Blue022ConsumeService } from '../tab1/blue022.consume.service';
+import { Blue022IssueService } from '../tab3/blue022.issue.service';
+import { Storage } from '@ionic/storage';
+
 
 
 @Component({
@@ -16,8 +18,9 @@ public senttransactions = [];
 public whichtransaction = "senttransactions";
 
 constructor(
-        private blue011consumeservice: Blue011ConsumeService,
-        private blue011issueservice: Blue011IssueService
+        private blue022consumeservice: Blue022ConsumeService,
+        private blue022issueservice: Blue022IssueService,
+        private storage: Storage
 
   ) {
 }
@@ -29,11 +32,17 @@ this.getsenttransactions();
 
 }
 
-
+clear() {
+  var empty= [];
+    this.storage.set('receivetransactions',empty);
+    this.storage.set('sendtransactions',empty);
+    this.getreceivetransactions() ;
+    this.getsenttransactions();
+}
 
 getreceivetransactions() {
 
-   this.blue011consumeservice.getreceivetransactions().then((data: any) => {
+   this.blue022consumeservice.getreceivetransactions().then((data: any) => {
       if(data != null)
       {
         this.receivedtransactions = data;
@@ -48,7 +57,7 @@ getreceivetransactions() {
 
 getsenttransactions() {
 
-   this.blue011issueservice.getsenttransactions().then((data: any) => {
+   this.blue022issueservice.getsenttransactions().then((data: any) => {
       if(data != null)
       {
         this.senttransactions = data;

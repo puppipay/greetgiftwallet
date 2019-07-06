@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { Blue011IssueService } from './blue011.issue.service';
+import { Blue022IssueService } from './blue022.issue.service';
 import { Storage } from '@ionic/storage';
 
 
@@ -16,19 +16,20 @@ export class Tab3Page implements OnInit{
 public issued: any;
 public whichsegment = "send";
 public addressbalance : any;
-public sendingmessages = [];
+public sendinggreetings = [];
 
 public walletbalance: any;
 public walletaddress: any;
 public walletwif: any;
 public toaddress: string;
+public greetingtomake: string;
 public toamount: number;
 public torevertamount: number;
 public txid: string;
 
 
 constructor(
-	private blue011issue: Blue011IssueService,
+	private blue022issue: Blue022IssueService,
 	private storage: Storage
 
   ) {
@@ -58,11 +59,14 @@ loadwalletwif() {
 
 }
 
-
+clear() {
+  var empty = []
+  this.storage.set('issuesendinggreetings',empty);
+}
 
 ionViewWillEnter() {
   this.loadwalletwif() ;
-  this.loadsendingmessages() ;
+  this.loadsendinggreetings() ;
 }
 
 wiftoaddress() {
@@ -75,19 +79,25 @@ wiftoaddress() {
 
 generatetestnet() {
 
+    if(!this.greetingtomake || this.greetingtomake.length < 5) {
+      alert("Enter greeting to make");
+      return;
+    }
+
     var data = {
-      msgtype: "default",
+      msgtype: "greeting",
+      greeting: this.greetingtomake,
       network: "testnet"
     };
 
-   this.blue011issue.issuesendingmessage(data).then((data: any) => {
+   this.blue022issue.issuegreetingmessage(data).then((data: any) => {
       if(data != null)
       {
         this.issued = data;
-        this.blue011issue.savesendingmessage(this.issued);
+        this.blue022issue.savesendinggreeting(this.issued);
       }
       else {
-        alert("Issue failed");
+        //alert("Issue failed");
       }
    }, (err)=> {
      alert (err)
@@ -103,13 +113,13 @@ if(!this.issued.address) {
  return;
 }
 
- this.blue011issue.getBalance(this.issued.address, "testnet").then((data: any) => {
+ this.blue022issue.getBalance(this.issued.address, "testnet").then((data: any) => {
       if(data != null)
       {
         this.addressbalance = data;
       }
       else {
-        alert("Query failed");
+//        alert("Query failed");
       }
    }, (err)=> {
      alert (err)
@@ -123,7 +133,7 @@ if(!this.walletaddress) {
  return;
 }
 
- this.blue011issue.getBalance(this.walletaddress, "testnet").then((data: any) => {
+ this.blue022issue.getBalance(this.walletaddress, "testnet").then((data: any) => {
       if(data != null)
       {
         this.walletbalance = data;
@@ -137,16 +147,16 @@ if(!this.walletaddress) {
 }
 
 
-loadsendingmessages() {
+loadsendinggreetings() {
 
 
-   this.blue011issue.getsendingmessages().then((data: any) => {
+   this.blue022issue.getsendinggreetings().then((data: any) => {
       if(data != null)
       {
-        this.sendingmessages = data;
+        this.sendinggreetings = data;
       }
       else {
-        alert("Load failed");
+//        alert("Load failed");
       }
    }, (err)=> {
      alert (err)
@@ -156,15 +166,15 @@ loadsendingmessages() {
 
 senddirectpayment() {
 
- this.blue011issue.getUtxo(this.walletaddress, 'testnet').then((data: any) => {
+ this.blue022issue.getUtxo(this.walletaddress, 'testnet').then((data: any) => {
  var fees = 15000;
  var utxo = data;
  var privatekey = dashcore.PrivateKey.fromWIF(this.walletwif);
  var changeaddress = this.walletaddress;
 
-    var tx = this.blue011issue.createtransaction(utxo, privatekey,changeaddress, this.toaddress, Number(this.toamount),fees ) ;
+    var tx = this.blue022issue.createtransaction(utxo, privatekey,changeaddress, this.toaddress, Number(this.toamount),fees ) ;
 
-    this.blue011issue.broadcast(tx.toString('hex')).then((res: any) => {
+    this.blue022issue.broadcast(tx.toString('hex')).then((res: any) => {
       if(res) {
         this.txid = res.txid;
         var trandata = {
@@ -175,7 +185,7 @@ senddirectpayment() {
             fees: fees
         };
 
-       this.blue011issue.savesendtransaction(trandata);
+       this.blue022issue.savesendtransaction(trandata);
 
       }
     });
@@ -187,15 +197,15 @@ senddirectpayment() {
 
 sendpayment() {
 
- this.blue011issue.getUtxo(this.walletaddress, 'testnet').then((data: any) => {
+ this.blue022issue.getUtxo(this.walletaddress, 'testnet').then((data: any) => {
  var fees = 15000;
  var utxo = data;
  var privatekey = dashcore.PrivateKey.fromWIF(this.walletwif);
  var changeaddress = this.walletaddress;
 
-    var tx = this.blue011issue.createtransaction(utxo, privatekey,changeaddress, this.issued.address, Number(this.torevertamount),fees ) ;
+    var tx = this.blue022issue.createtransaction(utxo, privatekey,changeaddress, this.issued.address, Number(this.torevertamount),fees ) ;
 
-    this.blue011issue.broadcast(tx.toString('hex')).then((res: any) => {
+    this.blue022issue.broadcast(tx.toString('hex')).then((res: any) => {
       if(res) {
         this.txid = res.txid;
         var trandata = {
@@ -206,7 +216,7 @@ sendpayment() {
             fees: fees
         };
 
-       this.blue011issue.savesendtransaction(trandata);
+       this.blue022issue.savesendtransaction(trandata);
 
       }
     });

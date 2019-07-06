@@ -1,6 +1,6 @@
 
 export const webtestnetconsumeconfig = {
-    apikey: "ApiKey "+'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjZTY4MThjNWIyMmMxMzlkZGJiZDAxNCIsImlhdCI6MTU1ODYxMDMxOX0.lPzOyj3jrbNhsv--gOkKXKxdTA-vMJnVc2X0pMt8iZs'
+    apikey: "ApiKey "+'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkMWYzYmZkMGMwNmY1MzhiNDI2ZWI1NyIsImlhdCI6MTU2MjMyODU2N30.fJdqtq2Nx2dCbrS-b39EW3UChAI8g3vDVv6C-8mrjrY'
 
 };
 

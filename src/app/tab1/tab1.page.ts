@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-import { Blue011ConsumeService } from './blue011.consume.service';
-import { Blue011IssueService } from '../tab3/blue011.issue.service';
+import { Blue022ConsumeService } from './blue022.consume.service';
+import { Blue022IssueService } from '../tab3/blue022.issue.service';
 //import * as dashcore from '@dashevo/dashcore-lib'
 
 declare var dashcore;
@@ -21,7 +21,7 @@ public walletaddress: any;
 public walletwif: any;
 public toaddress: string;
 public toamount: number;
-public receivedmessages = [];
+public receivedgreetings = [];
 verifiedgreeting : string;
 verifytxid : string;
 
@@ -29,8 +29,8 @@ public whichsegment = "receive";
 
 constructor(
 	private storage: Storage,
-	private blue011issue: Blue011IssueService,
-	private blue011consume: Blue011ConsumeService
+	private blue022issue: Blue022IssueService,
+	private blue022consume: Blue022ConsumeService
 
   ) {
 }
@@ -43,6 +43,7 @@ ngOnInit() {
 
  this.transacted = {
     "txid": "",
+    "greeting": "",
     "amount": "",
     "fromaddress": "",
     "toaddress": "",
@@ -54,15 +55,21 @@ ngOnInit() {
     "address": "",
     "target": "",
     "network": "",
-    "type": "BLUE011",
+    "type": "BLUE022",
     };
 
 
 
 }
 
+clear() {
+  var empty = [];
+  this.storage.set('receivedgreetings',empty);
+
+}
+
 ionViewWillEnter() {
-  this.loadreceivedmessages() ;
+  this.loadreceivedgreetings() ;
 }
 
 
@@ -75,15 +82,15 @@ wiftoaddress() {
 
 sendpayment() {
 
- this.blue011issue.getUtxo(this.walletaddress, 'testnet').then((data: any) => {
+ this.blue022issue.getUtxo(this.walletaddress, 'testnet').then((data: any) => {
  var fees = 15000;
  var utxo = data;
  var privatekey = dashcore.PrivateKey.fromWIF(this.walletwif);
  var changeaddress = this.walletaddress;
  
-    var tx = this.blue011issue.createtransaction(utxo, privatekey,changeaddress, this.toaddress, Number(this.toamount),fees ) ;
+    var tx = this.blue022issue.createtransaction(utxo, privatekey,changeaddress, this.toaddress, Number(this.toamount),fees ) ;
 
-    this.blue011issue.broadcast(tx.toString('hex')).then(res => {
+    this.blue022issue.broadcast(tx.toString('hex')).then(res => {
     
     alert(res);
 
@@ -104,7 +111,7 @@ loadwalletwif() {
 
 verifygreeting() {
 
-    this.blue011consume.verifygreeting(this.verifytxid, "testnet").then(res => {
+    this.blue022consume.verifygreeting(this.verifytxid, "testnet").then(res => {
 
      alert(JSON.stringify(res));
      var scriptsig = res.vin[0].scriptSig;
@@ -112,7 +119,8 @@ verifygreeting() {
 //     JSON.parse();
      var str1 = bufscript.toString('ascii');
      var index = str1.indexOf('}');
-     this.verifiedgreeting = str1.substring(index + 1);
+     var index2 = str1.indexOf('__');
+     this.verifiedgreeting = str1.substring(index + 1, index2);
 
     });
 
@@ -135,14 +143,14 @@ this.revertible.target = this.walletaddress;
 
 this.revertible.network = 'testnet';
 
- this.blue011consume.savereceivedmessage(this.revertible);
+ this.blue022consume.savereceivedgreeting(this.revertible);
 
- this.blue011consume.consumemessage(this.revertible).then((data: any) => {
+ this.blue022consume.consumegreeting(this.revertible).then((data: any) => {
       if(data != null)
       {
         this.transacted = data;
-        this.blue011consume.savereceivetransaction(this.transacted);
-        this.loadreceivedmessages() ;
+        this.blue022consume.savereceivetransaction(this.transacted);
+        this.loadreceivedgreetings() ;
       }
       else {
         alert("Consume failed");
@@ -162,7 +170,7 @@ if(!this.walletaddress) {
  return;
 }
 
- this.blue011consume.getBalance(this.walletaddress, "testnet").then((data: any) => {
+ this.blue022consume.getBalance(this.walletaddress, "testnet").then((data: any) => {
       if(data != null)
       {
         this.walletbalance = data;
@@ -176,13 +184,13 @@ if(!this.walletaddress) {
 }
 
 
-loadreceivedmessages() {
+loadreceivedgreetings() {
 
 
-   this.blue011consume.getreceivedmessages().then((data: any) => {
+   this.blue022consume.getreceivedgreetings().then((data: any) => {
       if(data != null)
       {
-        this.receivedmessages = data;
+        this.receivedgreetings = data;
       }
       else {
 //        alert("Load failed");

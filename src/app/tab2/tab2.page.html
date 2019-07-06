@@ -3,8 +3,19 @@
    <ion-buttons slot="start">
       <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
     </ion-buttons>
+   <ion-buttons slot="end">
+         <ion-button (click)="clear()">
+                <ion-icon name="clear"></ion-icon>
+      Clear
+          </ion-button>
+    </ion-buttons>
 
+    <ion-title>
+ Greetings
+    </ion-title>
 
+  </ion-toolbar>
+</ion-header>
   <ion-segment  [(ngModel)]="whichtransaction">
     <ion-segment-button value="senttransactions">
       <ion-label > Gift Sent </ion-label>
@@ -13,8 +24,6 @@
       <ion-label > Gift Received </ion-label>
     </ion-segment-button>
   </ion-segment>
-  </ion-toolbar>
-</ion-header>
 
 <ion-content>
 

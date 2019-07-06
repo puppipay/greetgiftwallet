@@ -4,17 +4,28 @@
       <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
     </ion-buttons>
 
+  <ion-buttons slot="end">
+         <ion-button (click)="clear()">
+                <ion-icon name="clear"></ion-icon>
+      Clear
+          </ion-button>
+    </ion-buttons>
+
+    <ion-title>
+ Send greetings
+    </ion-title>
+
+  </ion-toolbar>
+</ion-header>
 
   <ion-segment  [(ngModel)]="whichsegment">
     <ion-segment-button value="send">
       <ion-label > Greet & Gift </ion-label>
     </ion-segment-button>
-    <ion-segment-button value="messages">
+    <ion-segment-button value="greetings">
       <ion-label > Greeted Contracts </ion-label>
     </ion-segment-button>
   </ion-segment>
-  </ion-toolbar>
-</ion-header>
 
 
 <ion-content *ngIf="issued">
@@ -24,7 +35,7 @@
       <ion-card-content >
        <ion-item>
          <ion-label position="stacked"> Greeting to make </ion-label>
-         <ion-input  [(ngModel)]="toaddress" placeholder="Enter greeting here "></ion-input>
+         <ion-input  [(ngModel)]="greetingtomake" placeholder="Happy 24th birthday ...... from Sonu "></ion-input>
        </ion-item>
     </ion-card-content >
   </ion-card >
@@ -36,8 +47,8 @@
       <ion-card-content >
 
        <ion-item>
-         <ion-label position="stacked"> Amount to gift with greeting </ion-label>
-         <ion-input  [(ngModel)]="toamount" placeholder="Amount to gift "></ion-input>
+         <ion-label position="stacked"> Amount to gift (in satoshis) </ion-label>
+         <ion-input  [(ngModel)]="toamount" placeholder="230000 "></ion-input>
        </ion-item>
 
       <ion-item text-wrap>
@@ -46,6 +57,9 @@
       </ion-item >
        <ion-item>
       <ion-button fill="clear" size="small" color="primary" (click)="sendpayment()"> Fund greeting </ion-button>
+       </ion-item>
+       <ion-item *ngIf="issued.greeting">
+      Greeting created: {{issued.greeting}}
        </ion-item>
       </ion-card-content >
     </ion-card >
@@ -107,17 +121,17 @@
 
 
 </div>
-<div *ngIf="whichsegment == 'messages'">
+<div *ngIf="whichsegment == 'greetings'">
 
-  <ion-item *ngIf="sendingmessages.length == 0" >
-  No messages
+  <ion-item *ngIf="sendinggreetings.length == 0" >
+  No greetings
     </ion-item  >
          
  <ion-list> 
 
-    <ion-item *ngFor="let msg of sendingmessages" >
+    <ion-item *ngFor="let msg of sendinggreetings" >
           <ion-label  text-wrap>
-            <h3> Greeting:          {{msg.message}} </h3>
+            <h3> Greeting:          {{msg.greeting}} </h3>
             <h3> Greeting contract:          {{msg.message}}
   </h3>
             <h4> Greeting Address:          {{msg.address}}
