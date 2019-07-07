@@ -1,8 +1,12 @@
 <ion-header>
   <ion-toolbar color="primary">
   <ion-title> 
-	Gift King (Greet and Gift)
+	Gift King (Print the Greeting and Gift)
   </ion-title> 
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab3"></ion-back-button>
+    </ion-buttons>
+
   <ion-buttons slot="end">
          <ion-button (click)="clear()">
                 <ion-icon name="clear"></ion-icon>
@@ -16,10 +20,10 @@
 
   <ion-segment  [(ngModel)]="whichsegment">
     <ion-segment-button value="receive">
-      <ion-label > Receive gifts </ion-label>
+      <ion-label > Selected print </ion-label>
     </ion-segment-button>
     <ion-segment-button value="greetings">
-      <ion-label > Greetings </ion-label>
+      <ion-label > Select others </ion-label>
     </ion-segment-button>
   </ion-segment>
 
@@ -58,10 +62,6 @@
       <ion-card-header>
       <ion-card-title>
      Receive Gift from Greeting contract
-      <ion-chip routerLink="/socialtabs/tab1">
-  <ion-label>Scan</ion-label>
-   </ion-chip>
-
       </ion-card-title>
       </ion-card-header>
       <ion-card-content >
@@ -120,7 +120,7 @@
        <ion-item>
          <ion-label > <h4> Wallet balance  </h4>
          <h4 *ngIf="walletbalance"> Confirmed: {{walletbalance.balanceSat}} </h4> 
-         <p *ngIf="walletbalance"> Unconfirmed : {{walletbalance.unconfirmedBalanceSat}} </p> </ion-label>
+         <p *ngIf="walletbalance"> Unconfirmed : {{walletbalance.unconfirmedBalance}} </p> </ion-label>
        </ion-item>
  <ion-button fill="clear" size="small" color="primary" (click)="gettestnetbalance()"> Check balance </ion-button>
 

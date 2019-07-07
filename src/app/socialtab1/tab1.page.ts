@@ -53,7 +53,6 @@ ngOnInit() {
     "message": "",
     "pin": "",
     "address": "",
-    "greeting": "",
     "target": "",
     "network": "",
     "type": "BLUE022",
@@ -149,15 +148,12 @@ this.revertible.target = this.walletaddress;
 
 this.revertible.network = 'testnet';
 
+ this.blue022consume.savereceivedgreeting(this.revertible);
 
  this.blue022consume.consumegreeting(this.revertible).then((data: any) => {
       if(data != null)
       {
         this.transacted = data;
-        this.revertible.txid = this.transacted.txid;
-        this.revertible.greeting = this.transacted.greeting;
-        this.blue022consume.savereceivedgreeting(this.revertible);
-
         this.blue022consume.savereceivetransaction(this.transacted);
         this.loadreceivedgreetings() ;
       }

@@ -27,7 +27,6 @@ export class Blue022ConsumeService {
   }
 
 
-
   savereceivedgreeting (details: any) {
     if(details != null) {
       this.receivedgreetings.push(details);

@@ -35,6 +35,29 @@ export class Blue022IssueService {
     }
   }
 
+  updatesendinggreeting (address, txid) {
+
+     for(var i=0; i< this.sendinggreetings.length; i++ ) {
+	if(this.sendingreetings[i].address == address) {
+	  this.sendingreetings[i].txid = txid;
+          this.updatetransaction(txid, this.sendinggreetings[i].greeting) ;
+        }
+     }
+      this.storage.set('issuesendinggreetings',this.sendinggreetings);
+  }
+
+  updatetransaction (txid, greeting) {
+
+     for(var i=0; i< this.sendtransactions.length; i++ ) {
+
+	if(this.sendtransactions[i].txid == txid) {
+	  this.sendtransactions[i].greeting = greeting;
+        }
+
+     }
+      this.storage.set('sendtransactions',this.sendtransactions);
+
+  }
 
   loadsendinggreetings() {
       this.storage.get('issuesendinggreetings').then((data)=> {
@@ -70,6 +93,37 @@ export class Blue022IssueService {
   }
 
 
+
+  getinitialcoins (details: any) {
+
+
+
+        return new Promise((resolve, reject) => {
+
+
+             let headers = new Headers();
+
+            if(details.network == 'testnet'){
+                headers.append('Authorization', webtestnetissueconfig.apikey);
+            }else {
+                headers.append('Authorization', weblivenetissueconfig.apikey);
+
+            }
+             headers.append('Content-Type', 'application/json');
+
+            this.http.post(this.url + '/getinitialcoins', JSON.stringify(details), {headers: headers})
+              .subscribe(res => {
+
+                let data = res.json();
+                resolve(data);
+
+              }, (err) => {
+                reject(err);
+              });
+
+        });
+
+  }
 
   issuegreetingmessage (details: any) {
 

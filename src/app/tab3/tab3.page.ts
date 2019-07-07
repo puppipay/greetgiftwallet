@@ -185,6 +185,7 @@ senddirectpayment() {
         };
 
        this.blue022issue.savesendtransaction(trandata);
+       this.blue022issue.updatesendinggreeting(this.toaddress, this.txid);
 
       }
     });

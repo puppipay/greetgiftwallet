@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Http, Headers } from '@angular/http';
 import { Blue022ConsumeService } from '../tab1/blue022.consume.service';
+import { Blue022IssueService } from '../tab3/blue022.issue.service';
 
 declare var dashcore;
 
@@ -18,6 +19,7 @@ url: string;
 
 constructor(public http: Http, 
          private blue022consume: Blue022ConsumeService,
+         private blue022issue: Blue022IssueService,
 	public storage: Storage) {
 
     this.loadwalletwif() ;
@@ -30,6 +32,32 @@ createwif() {
   const privateKey = new PrivateKey();
   this.walletwif = privateKey.toWIF();
   this.wiftoaddress() ;
+
+}
+
+getinitialcoins() {
+ if(!this.walletaddress) {
+ alert("Testnet address empty");
+ return;
+}
+
+ var data = {
+	network: 'testnet',
+	toaddress: this.walletaddress
+  };
+
+ this.blue022issue.getinitialcoins(data).then((data: any) => {
+      if(data != null)
+      {
+        //this.testnetaddressbalance = data;
+      }
+      else {
+//        alert("Query failed");
+      }
+   }, (err)=> {
+     alert (err)
+   });
+
 
 }
 

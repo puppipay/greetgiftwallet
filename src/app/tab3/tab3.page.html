@@ -75,13 +75,13 @@
       <ion-item *ngIf="addressbalance">
   <ion-label>
      <h4> Address Balance: {{addressbalance.balanceSat}} </h4>
-<p> Unconfirmed : {{addressbalance.unconfirmedBalance }} </p>
+<p> Unconfirmed : {{addressbalance.unconfirmedBalanceSat }} </p>
   </ion-label>
       </ion-item >
       <ion-item *ngIf="walletbalance" >
   <ion-label>
      <h4> Wallet Balance: {{walletbalance.balanceSat}} </h4>
-<p> Unconfirmed : {{walletbalance.unconfirmedBalance }} </p>
+<p> Unconfirmed : {{walletbalance.unconfirmedBalanceSat }} </p>
   </ion-label>
       </ion-item >
 
@@ -93,6 +93,13 @@
       <ion-card-header>
       <ion-card-title>
      Greeting contract/PIN 
+ <ion-chip routerLink="/util/socialtabs/tab1">
+  <ion-label>Share</ion-label>
+   </ion-chip>
+ <ion-chip routerLink="/util/socialtabs/tab2">
+  <ion-label>Print</ion-label>
+   </ion-chip>
+
       </ion-card-title>
       </ion-card-header>
       <ion-card-content >
