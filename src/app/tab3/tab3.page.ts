@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Blue022IssueService } from './blue022.issue.service';
 import { Storage } from '@ionic/storage';
+import { Router } from '@angular/router';
+
 
 
 declare var dashcore;
@@ -29,6 +31,7 @@ public txid: string;
 
 constructor(
 	private blue022issue: Blue022IssueService,
+        private router: Router,
 	private storage: Storage
 
   ) {
@@ -125,6 +128,25 @@ if(!this.issued.address) {
      alert (err)
    });
 }
+
+sendcheck() {
+  if(this.addressbalance && ( this.addressbalance.balanceSat > 14999 || this.addressbalance.unconfirmedBalanceSat > 14999) ) {
+   this.router.navigateByUrl('/util/socialtabs/tab1');
+  } else {
+    alert("Greeting is not adequately funded, Minumum 15000 satoshis needed.");
+  }
+}
+
+sharecheck() {
+  if(this.addressbalance && ( this.addressbalance.balanceSat > 14999 || this.addressbalance.unconfirmedBalanceSat > 14999))
+  {
+   this.router.navigateByUrl('/util/socialtabs/tab2');
+
+  } else {
+    alert("Greeting is not adequately funded, Minumum 15000 satoshis needed.");
+  }
+}
+
 
 getwalletbalance() {
 

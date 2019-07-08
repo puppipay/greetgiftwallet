@@ -17,6 +17,15 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'tab1/:id',
+        children: [
+          {
+            path: '',
+            loadChildren: '../tab1/tab1.module#Tab1PageModule'
+          }
+        ]
+      },
+      {
         path: 'tab2',
         children: [
           {
@@ -57,7 +66,6 @@ const routes: Routes = [
     redirectTo: '/tabs/tab3',
     pathMatch: 'full'
   },
-  { path: '**', redirectTo: '/tabs/tab3' },
 ];
 
 @NgModule({

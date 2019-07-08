@@ -51,7 +51,7 @@
        </ion-item>
 
       <ion-item text-wrap>
-         <ion-label position="stacked"> Created greeting address </ion-label>
+         <ion-label position="stacked"> Place for greeting address  </ion-label>
          <ion-input  [(ngModel)]="issued.address" placeholder="Created greeting address" ></ion-input>
       </ion-item >
        <ion-item>
@@ -93,10 +93,10 @@
       <ion-card-header>
       <ion-card-title>
      Sendable Greeting 
- <ion-chip routerLink="/util/socialtabs/tab1">
+ <ion-chip (click)="sendcheck()" >
   <ion-label>Send</ion-label>
    </ion-chip>
- <ion-chip routerLink="/util/socialtabs/tab2">
+ <ion-chip (click)="sharecheck()" >
   <ion-label>Print</ion-label>
    </ion-chip>
 

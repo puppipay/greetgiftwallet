@@ -13,6 +13,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HttpModule } from '@angular/http';
 
 import { TabsPage } from './tabs/tabs.page';
+import { TabsPageRoutingModule } from './tabs/tabs.router.module';
+
 
 
 
@@ -25,6 +27,7 @@ import { TabsPage } from './tabs/tabs.page';
         HttpModule,
         IonicStorageModule.forRoot(),
 	IonicModule.forRoot(), 
+        TabsPageRoutingModule,
 	AppRoutingModule],
   providers: [
     StatusBar,

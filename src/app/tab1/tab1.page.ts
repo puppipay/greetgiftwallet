@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { ActivatedRoute } from '@angular/router';
 import { Blue022ConsumeService } from './blue022.consume.service';
 import { Blue022IssueService } from '../tab3/blue022.issue.service';
 //import * as dashcore from '@dashevo/dashcore-lib'
@@ -34,6 +35,7 @@ public whichsegment = "receive";
 
 constructor(
 	private storage: Storage,
+        private route: ActivatedRoute,
 	private blue022issue: Blue022IssueService,
 	private blue022consume: Blue022ConsumeService
 
@@ -102,6 +104,14 @@ clear() {
 }
 
 ionViewWillEnter() {
+  let sentId = this.route.snapshot.paramMap.get('id');
+
+  if(sentId) {
+    this.revertible.message = sentId;
+    this.contractopened = true;
+    alert("Enter PIN and Accept funds");
+  }
+
   this.loadreceivedgreetings() ;
 }
 
