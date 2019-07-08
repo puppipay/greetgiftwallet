@@ -92,9 +92,9 @@
     <ion-card class="datainput">
       <ion-card-header>
       <ion-card-title>
-     Greeting contract/PIN 
+     Sendable Greeting 
  <ion-chip routerLink="/util/socialtabs/tab1">
-  <ion-label>Share</ion-label>
+  <ion-label>Send</ion-label>
    </ion-chip>
  <ion-chip routerLink="/util/socialtabs/tab2">
   <ion-label>Print</ion-label>
@@ -106,13 +106,17 @@
             <ion-item>
          <ion-label position="stacked"> Greeting contract </ion-label>
             <ion-textarea rows="4" text-wrap type="text" [(ngModel)]="issued.message"
-                 placeholder=" Greeting contract "></ion-textarea>
+                 placeholder=" Place for Greeting contract " readonly></ion-textarea>
             </ion-item>
 
+            <ion-item>
+         <ion-label position="stacked"> Greeting short link </ion-label>
+         <ion-input  text-wrap [(ngModel)]="issued.shorturl" placeholder="Place for short link " readonly ></ion-input>
+           </ion-item>
 
             <ion-item>
          <ion-label position="stacked"> PIN </ion-label>
-         <ion-input  [(ngModel)]="issued.pin" placeholder="PIN "></ion-input>
+         <ion-input  [(ngModel)]="issued.pin" placeholder="Place for PIN " readonly></ion-input>
            </ion-item>
 
       <ion-item *ngIf="issued.fullredeemurl">
@@ -138,8 +142,8 @@
     <ion-item *ngFor="let msg of sendinggreetings" >
           <ion-label  text-wrap>
             <h3> Greeting:          {{msg.greeting}} </h3>
-            <h3> Greeting contract:          {{msg.message}}
-  </h3>
+            <h3> Greeting contract:          {{msg.message}} </h3>
+            <h3> Greeting shorturl:          {{msg.shorturl}} </h3>
             <h4> Greeting Address:          {{msg.address}}
   </h4>
             <p>

@@ -17,7 +17,7 @@
 <ion-card  class="datainput">
 <ion-card-header>
 <ion-card-title>
- <ion-button fill="clear" size="small" color="primary" (click)="createwif()"> Create testnet wallet wif </ion-button>
+ <ion-button *ngIf="!walletwif" fill="clear" size="small" color="primary" (click)="createwif()"> Create testnet wallet wif </ion-button>
 </ion-card-title>
 </ion-card-header>
 <ion-item>
@@ -34,9 +34,9 @@
 <ion-item>
  <ion-button fill="clear" size="small" color="primary" (click)="savewif()"> Save </ion-button>
  <ion-button fill="clear" size="small" color="primary" (click)="gettestnetbalance()"> Get balance </ion-button>
- <ion-button fill="clear" size="small" color="primary" (click)="getinitialcoins()"> Getinitialcoins </ion-button>
 </ion-item>
 <ion-item *ngIf="testnetaddressbalance">
+ <ion-button fill="clear" size="small" color="primary" (click)="getinitialcoins()"  *ngIf="testnetaddressbalance.balanceSat < 20000 " > Get Coins </ion-button>
   <ion-label> 
   Balance:  {{testnetaddressbalance.balanceSat}}
   <p > Unconfirmed : {{testnetaddressbalance.unconfirmedBalanceSat}} </p> </ion-label>

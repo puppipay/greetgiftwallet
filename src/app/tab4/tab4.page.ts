@@ -32,7 +32,7 @@ createwif() {
   const privateKey = new PrivateKey();
   this.walletwif = privateKey.toWIF();
   this.wiftoaddress() ;
-
+  alert("Click save ");
 }
 
 getinitialcoins() {

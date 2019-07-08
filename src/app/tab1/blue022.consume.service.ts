@@ -71,6 +71,22 @@ export class Blue022ConsumeService {
   }
 
 
+  consumeshortlink (shortlink: string) {
+
+       return new Promise((resolve, reject) => {
+
+
+     this.http.get(shortlink).subscribe(res => {
+                let data = res ; //.json();
+                resolve(data);
+        }, (err) => {
+          reject(err);
+        });
+    });
+
+
+  }
+
   consumegreeting (details: any) {
 
 

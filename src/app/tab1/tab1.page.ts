@@ -24,6 +24,11 @@ public toamount: number;
 public receivedgreetings = [];
 verifiedgreeting : string;
 verifytxid : string;
+shortlinkopened = false;
+contractopened = false;
+openedtranstatus = false;
+
+shortlinkprovided : string;
 
 public whichsegment = "receive";
 
@@ -62,6 +67,32 @@ ngOnInit() {
 
 
 }
+
+opentransactionstatus() {
+this.openedtranstatus = !this.openedtranstatus ;
+
+}
+
+openshortlink() {
+this.shortlinkopened = !this.shortlinkopened ;
+
+}
+opencontract() {
+this.contractopened = !this.contractopened; 
+
+}
+
+
+
+consumeshortlink() {
+    this.blue022consume.consumeshortlink(this.shortlinkprovided).then(res => {
+     alert(res);
+   }, (err)=> {
+     alert (err)
+   });
+
+};
+
 
 clear() {
   var empty = [];

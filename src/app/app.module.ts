@@ -12,9 +12,14 @@ import { AppComponent } from './app.component';
 import { IonicStorageModule } from '@ionic/storage';
 import { HttpModule } from '@angular/http';
 
+import { TabsPage } from './tabs/tabs.page';
+
+
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, 
+        TabsPage,
+   ],
   entryComponents: [],
   imports: [BrowserModule, 
         HttpModule,

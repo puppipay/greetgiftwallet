@@ -38,8 +38,8 @@ export class Blue022IssueService {
   updatesendinggreeting (address, txid) {
 
      for(var i=0; i< this.sendinggreetings.length; i++ ) {
-	if(this.sendingreetings[i].address == address) {
-	  this.sendingreetings[i].txid = txid;
+	if(this.sendinggreetings[i].address == address) {
+	  this.sendinggreetings[i].txid = txid;
           this.updatetransaction(txid, this.sendinggreetings[i].greeting) ;
         }
      }

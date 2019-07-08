@@ -50,21 +50,40 @@
     </ion-card>
 
 
+    <ion-card class="datainput">
+      <ion-card-header>
+      <ion-card-title>
+     Receive Gift from Greeting Shortlink
 
+      <ion-button fill="clear" size="small" color="primary" (click)="openshortlink()"> Open </ion-button>
+      </ion-card-title>
+      </ion-card-header>
+      <ion-card-content *ngIf="shortlinkopened">
+
+            <ion-item>
+         <ion-input  [(ngModel)]="shortlinkprovided" placeholder="Enter short link  "></ion-input>
+      <ion-button fill="clear" size="small" color="primary" href="{{shortlinkprovided}}"> Submit </ion-button>
+            </ion-item>
+            <ion-item>
+         <ion-label position="stacked"> Enter PIN </ion-label>
+         <ion-input  [(ngModel)]="revertible.pin" placeholder="Enter PIN "></ion-input>
+           </ion-item>
+      <ion-button fill="clear" size="small" color="primary" (click)="consumetestnetmessage()"> Accept gift </ion-button>
+
+      </ion-card-content>
+    </ion-card>
 
 
 
     <ion-card class="datainput">
       <ion-card-header>
       <ion-card-title>
-     Receive Gift from Greeting contract
-      <ion-chip routerLink="/socialtabs/tab1">
-  <ion-label>Scan</ion-label>
-   </ion-chip>
+     Receive Gift from Greeting Contract
+      <ion-button fill="clear" size="small" color="primary" (click)="opencontract()"> Open </ion-button>
 
       </ion-card-title>
       </ion-card-header>
-      <ion-card-content >
+      <ion-card-content *ngIf="contractopened" >
             <ion-item>
          <ion-label position="stacked"> Enter greeting contract below </ion-label>
             <ion-textarea rows="8" text-wrap type="text" [(ngModel)]="revertible.message"
@@ -73,8 +92,8 @@
 
 
             <ion-item>
-         <ion-label position="stacked"> Enter PIN to accept </ion-label>
-         <ion-input  [(ngModel)]="revertible.pin" placeholder="Enter PIN to accept "></ion-input>
+         <ion-label position="stacked"> Enter PIN </ion-label>
+         <ion-input  [(ngModel)]="revertible.pin" placeholder="Enter PIN "></ion-input>
            </ion-item>
       <ion-button fill="clear" size="small" color="primary" (click)="consumetestnetmessage()"> Accept gift </ion-button>
 
@@ -87,9 +106,11 @@
     <ion-card class="datainput"  >
       <ion-card-header>
       <ion-card-title>
-     Status of transaction will be displayed below 
+     Status of transaction 
+      <ion-button fill="clear" size="small" color="primary" (click)="opentransactionstatus()"> Open </ion-button>
       </ion-card-title>
       </ion-card-header>
+      <ion-card-content *ngIf="openedtranstatus" >
 
       <ion-item >
      Transaction output:  {{transacted.txid}}
@@ -103,6 +124,7 @@
       <ion-item >
 <h4>      To address : {{transacted.toaddress}} </h4>
       </ion-item>
+      </ion-card-content>
     </ion-card>
 
     <ion-card >
