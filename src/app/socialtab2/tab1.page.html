@@ -27,7 +27,7 @@
 
 
 
-<ion-content>
+<ion-content >
 
 
     <ion-card class="datainput">
@@ -48,7 +48,7 @@
     </ion-card>
       <ion-item >
  <ion-button fill="clear" size="small" color="primary" (click)="gettestnetbalance()"> Print </ion-button>
- <ion-button fill="clear" size="small" color="primary" (click)="gettestnetbalance()"> Download </ion-button>
+ <ion-button fill="clear" size="small" color="primary" (click)="captureScreen()"> Download </ion-button>
       </ion-item >
 
     <ion-card class="datainput">
@@ -56,6 +56,11 @@
 
             <ion-item>
 	QR code
+<div class="qrcode" *ngIf="printingdata" id="contentToConvert">
+
+    <qrcode [qrdata]="printingdata.shorturl" [size]="256" [level]="'M'"></qrcode>
+
+</div>
             </ion-item>
 
       </ion-card-content>
