@@ -1,11 +1,12 @@
+
 <ion-header>
   <ion-toolbar color="primary">
   <ion-title> 
-	Gift King (Share the Greeting and Gift)
+	Gift King (Share the Greeting with Gift)
   </ion-title> 
-   <ion-buttons slot="start">
+    <ion-buttons slot="start">
       <ion-back-button defaultHref="/tabs/tab3"></ion-back-button>
-   </ion-buttons>
+    </ion-buttons>
 
   <ion-buttons slot="end">
          <ion-button (click)="clear()">
@@ -20,10 +21,7 @@
 
   <ion-segment  [(ngModel)]="whichsegment">
     <ion-segment-button value="receive">
-      <ion-label > Selected share </ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="greetings">
-      <ion-label > Select others </ion-label>
+      <ion-label > WhatsApp </ion-label>
     </ion-segment-button>
   </ion-segment>
 
@@ -33,122 +31,39 @@
 <ion-content>
 <div *ngIf="whichsegment == 'receive'">
 
-   <ion-card>
-      <ion-card-header>
-      <ion-card-title>
-     Verify greeting on Blockchain
-      </ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-            <ion-item>
-         <ion-label position="stacked"> Enter txid of received gift </ion-label>
-         <ion-input  [(ngModel)]="verifytxid" placeholder="Enter txid "></ion-input>
-           </ion-item>
-      <ion-button fill="clear" size="small" color="primary" (click)="verifygreeting()"> Verify greeting </ion-button>
-           <ion-item>
-  <ion-label *ngIf="verifiedgreeting" >
-   Greeting on Blockchain is: {{verifiedgreeting }}
-  </ion-label>
-           </ion-item>
-      </ion-card-content>
-    </ion-card>
-
-
-
-
-
 
     <ion-card class="datainput">
       <ion-card-header>
       <ion-card-title>
-     Receive Gift from Greeting contract
+     Edit the greeting (optional)
       </ion-card-title>
       </ion-card-header>
       <ion-card-content >
             <ion-item>
-         <ion-label position="stacked"> Enter greeting contract below </ion-label>
-            <ion-textarea rows="8" text-wrap type="text" [(ngModel)]="revertible.message"
-                          placeholder="Enter greeting contract "></ion-textarea>
+            <ion-textarea rows="8" text-wrap type="text" [(ngModel)]="sharingmessage"
+                          ></ion-textarea>
             </ion-item>
+   
 
-
-            <ion-item>
-         <ion-label position="stacked"> Enter PIN to accept </ion-label>
-         <ion-input  [(ngModel)]="revertible.pin" placeholder="Enter PIN to accept "></ion-input>
-           </ion-item>
-      <ion-button fill="clear" size="small" color="primary" (click)="consumetestnetmessage()"> Accept gift </ion-button>
 
       </ion-card-content>
     </ion-card>
       <ion-item >
-     Greeting :  {{transacted.greeting}}
+ <ion-button fill="clear" size="small" color="primary" (click)="gettestnetbalance()"> Whatsapp </ion-button>
       </ion-item >
 
-    <ion-card class="datainput"  >
-      <ion-card-header>
-      <ion-card-title>
-     Status of transaction will be displayed below 
-      </ion-card-title>
-      </ion-card-header>
+    <ion-card class="datainput">
+      <ion-card-content>
 
-      <ion-item >
-     Transaction output:  {{transacted.txid}}
-      </ion-item>
-      <ion-item >
-     Amount : {{transacted.amount}}
-      </ion-item>
-      <ion-item >
-     <h4> From address : {{transacted.fromaddress}} </h4>
-      </ion-item >
-      <ion-item >
-<h4>      To address : {{transacted.toaddress}} </h4>
-      </ion-item>
+  <ion-label> 
+
+   {{sharingmessage}}
+
+  </ion-label>
+
+      </ion-card-content>
     </ion-card>
 
-    <ion-card >
-      <ion-card-header>
-      <ion-card-title>
-     Wallet details
-      </ion-card-title>
-      </ion-card-header>
-      <ion-card-content >
-       <ion-item>
-         <ion-label text-wrap>  <h4> Wallet address  </h4>
-         <p> {{walletaddress}}  </p> </ion-label>
-       </ion-item>
-
-       <ion-item>
-         <ion-label > <h4> Wallet balance  </h4>
-         <h4 *ngIf="walletbalance"> Confirmed: {{walletbalance.balanceSat}} </h4> 
-         <p *ngIf="walletbalance"> Unconfirmed : {{walletbalance.unconfirmedBalance}} </p> </ion-label>
-       </ion-item>
- <ion-button fill="clear" size="small" color="primary" (click)="gettestnetbalance()"> Check balance </ion-button>
-
-
-      </ion-card-content >
-    </ion-card >
- 
-</div>
-
-<div *ngIf="whichsegment == 'greetings'">
-  <ion-item *ngIf="receivedgreetings.length == 0" >
-  No greetings
-    </ion-item  >
-
- <ion-list>
-
-    <ion-item *ngFor="let msg of receivedgreetings" >
-          <ion-label  text-wrap>
-            <h3> Greeting :          {{msg.greeting}} </h3>
-            <h3> Greeting contract:          {{msg.message}} </h3>
-            <h4> To address:          {{msg.target}} </h4>
-            <p>
-          PIN: {{msg.pin }}
-            </p>
-       </ion-label>
-    </ion-item>
-
- </ion-list>
 </div>
 
 </ion-content>

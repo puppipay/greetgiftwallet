@@ -104,6 +104,7 @@ clear() {
 }
 
 ionViewWillEnter() {
+ this.loadwalletwif() ;
   let sentId = this.route.snapshot.paramMap.get('id');
 
   if(sentId) {

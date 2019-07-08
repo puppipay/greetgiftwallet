@@ -44,6 +44,7 @@ ngOnInit() {
     "message": "",
     "pin": "",
     "address": "",
+    "greeting": "",
     "network": "",
     "type": "",
     };
@@ -129,21 +130,50 @@ if(!this.issued.address) {
    });
 }
 
-sendcheck() {
+sharingdata() {
+
+  var sharingdata = {
+     shorturl : this.issued.shorturl,
+     pin : this.issued.pin,
+     greeting : this.issued.greeting,
+     amount : this.addressbalance.balanceSat
+  };
+
+  this.storage.set('sharingdata',sharingdata);
+ 
+}
+
+printingdata() {
+
+  var printingdata = {
+     shorturl : this.issued.shorturl,
+     pin : this.issued.pin,
+     greeting : this.issued.greeting,
+     amount : this.addressbalance.balanceSat
+  };
+
+  this.storage.set('printingdata',printingdata);
+
+}
+
+
+printcheck() {
   if(this.addressbalance && ( this.addressbalance.balanceSat > 14999 || this.addressbalance.unconfirmedBalanceSat > 14999) ) {
-   this.router.navigateByUrl('/util/socialtabs/tab1');
+   this.printingdata() ;
+   this.router.navigateByUrl('/util/socialtabs/tab2');
   } else {
-    alert("Greeting is not adequately funded, Minumum 15000 satoshis needed.");
+    alert("Greeting is not adequately funded, Minimum 15000 satoshis needed.");
   }
 }
 
 sharecheck() {
   if(this.addressbalance && ( this.addressbalance.balanceSat > 14999 || this.addressbalance.unconfirmedBalanceSat > 14999))
   {
-   this.router.navigateByUrl('/util/socialtabs/tab2');
+   this.sharingdata() ;
+   this.router.navigateByUrl('/util/socialtabs/tab1');
 
   } else {
-    alert("Greeting is not adequately funded, Minumum 15000 satoshis needed.");
+    alert("Greeting is not adequately funded, Minimum 15000 satoshis needed.");
   }
 }
 
