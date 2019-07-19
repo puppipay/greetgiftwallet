@@ -277,6 +277,25 @@ export class Blue022IssueService {
 
   }
 
+   getqrcode(sentdata: string): any {
+
+     var url ;
+     url = "https://api.qrserver.com/v1/create-qr-code/?size=150x150";
+
+     return new Promise((resolve, reject) => {
+   
+
+     this.http.get(url + "&data="+sentdata).subscribe(res => {
+                let data = res.json();
+                resolve(data);
+        }, (err) => {
+          reject(err);
+        });
+    });
+
+
+  }
+
 
  
 }

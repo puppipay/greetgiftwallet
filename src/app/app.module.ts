@@ -14,6 +14,8 @@ import { HttpModule } from '@angular/http';
 
 import { TabsPage } from './tabs/tabs.page';
 import { TabsPageRoutingModule } from './tabs/tabs.router.module';
+import { SocialSharing } from "@ionic-native/social-sharing/ngx";
+
 
 
 
@@ -32,6 +34,7 @@ import { TabsPageRoutingModule } from './tabs/tabs.router.module';
   providers: [
     StatusBar,
     SplashScreen,
+    SocialSharing,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent],

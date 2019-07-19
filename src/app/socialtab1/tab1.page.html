@@ -21,7 +21,7 @@
 
   <ion-segment  [(ngModel)]="whichsegment">
     <ion-segment-button value="receive">
-      <ion-label > WhatsApp </ion-label>
+      <ion-label > WhatsApp/Email </ion-label>
     </ion-segment-button>
   </ion-segment>
 
@@ -48,25 +48,22 @@
 
       </ion-card-content>
     </ion-card>
-      <ion-item >
-<ion-button href="https://wa.me/?text={{sharingmessage}} " color="primary"  target="_blank" clear>
-    WhatsApp
-     </ion-button>
+
+      <ion-item *ngIf="!mobiletest">
+<a href="https://web.whatsapp.com/send?text={{sharingmessage}} " data-text="GiftKing" class="wa_btn wa_btn_s" style="display:block" >Web Share on Whatsapp</a>
+      </ion-item >
+      <ion-item *ngIf="!mobiletest">
+<a href= "mailto:example@example.com?body={{mailingmessage}}&Suject=Greeting%20with%20Gift" > Send as email </a>
+      </ion-item >
+      <ion-item *ngIf="mobiletest">
+
+<a href= "mailto:example@example.com?body={{sharingmessage}}&Suject=Greeting%20with%20Gift" > Send as email </a>
+
+
 
 
       </ion-item >
 
-    <ion-card class="datainput">
-      <ion-card-content>
-
-  <ion-label> 
-
-   {{sharingmessage}}
-
-  </ion-label>
-
-      </ion-card-content>
-    </ion-card>
 
 </div>
 

@@ -36,56 +36,85 @@
          <ion-label position="stacked"> Greeting to make </ion-label>
          <ion-input  [(ngModel)]="greetingtomake" placeholder="Happy 24th birthday ...... from Sonu "></ion-input>
        </ion-item>
-    </ion-card-content >
-  </ion-card >
-  <ion-card >
-      <ion-card-header>
-     Greeting and Gift payment
-      <ion-button fill="clear" size="small" color="primary" (click)="generatetestnet()"> Prepare Greeting </ion-button>
-      </ion-card-header>
-      <ion-card-content >
-
        <ion-item>
          <ion-label position="stacked"> Amount to gift (in satoshis) </ion-label>
          <ion-input  [(ngModel)]="toamount" placeholder="230000 "></ion-input>
        </ion-item>
+       <ion-item>
+      <ion-button fill="clear" size="small" color="primary" (click)="prepareautomatic()"> Prepare+  </ion-button>
+      <ion-button fill="clear" size="small" color="primary" (click)="modemanual()"> Manual mode  </ion-button>
+       </ion-item>
+    </ion-card-content >
+  </ion-card >
+
+  <ion-card *ngIf="!modeautomatic">
+      <ion-card-header>
+     Greeting and Gift payment
+      <ion-button fill="clear" size="small" color="primary" (click)="generatetestnet()"> Prepare </ion-button>
+      <ion-button fill="clear" size="small" color="primary" (click)="sendpayment()"> Fund </ion-button>
+      </ion-card-header>
+      <ion-card-content >
+
 
       <ion-item text-wrap>
          <ion-label position="stacked"> Place for greeting address  </ion-label>
          <ion-input  [(ngModel)]="issued.address" placeholder="Created greeting address" ></ion-input>
       </ion-item >
-       <ion-item>
-      <ion-button fill="clear" size="small" color="primary" (click)="sendpayment()"> Fund greeting </ion-button>
-       </ion-item>
        <ion-item *ngIf="issued.greeting">
-      Greeting created: {{issued.greeting}}
+  <ion-label text-wrap>      Greeting created: {{issued.greeting}}
+  </ion-label>
        </ion-item>
-      </ion-card-content >
-    </ion-card >
-
-    <ion-card >
-      <ion-item >
-     Transaction id: {{txid}}
-      </ion-item >
-     <ion-item >
-      <ion-button fill="clear" size="small" color="primary" (click)="getwalletbalance()"> Wallet balance</ion-button>
-      <ion-button fill="clear" size="small" color="primary" (click)="getaddressbalance()"> Address balance</ion-button>
-      </ion-item >
-
+       <ion-item>
+    Check 
+      <ion-button fill="clear" size="small" color="primary" (click)="getaddressbalance()"> Greeting balance</ion-button>
+       </ion-item>
       <ion-item *ngIf="addressbalance">
   <ion-label>
-     <h4> Address Balance: {{addressbalance.balanceSat}} </h4>
+     <h4> Greeting Balance: {{addressbalance.balanceSat}} </h4>
 <p> Unconfirmed : {{addressbalance.unconfirmedBalanceSat }} </p>
   </ion-label>
       </ion-item >
-      <ion-item *ngIf="walletbalance" >
-  <ion-label>
-     <h4> Wallet Balance: {{walletbalance.balanceSat}} </h4>
-<p> Unconfirmed : {{walletbalance.unconfirmedBalanceSat }} </p>
+      <ion-item >
+  <ion-label text-wrap>
+     Transaction id: {{txid}}
   </ion-label>
       </ion-item >
+      </ion-card-content >
+    </ion-card >
 
-    </ion-card>
+
+  <ion-card *ngIf="modeautomatic">
+      <ion-card-header>
+     Greeting and Gift payment
+      </ion-card-header>
+      <ion-card-content >
+
+
+      <ion-item text-wrap>
+         <ion-label position="stacked"> Place for greeting address  </ion-label>
+         <ion-input  [(ngModel)]="issued.address" placeholder="Created greeting address" ></ion-input>
+      </ion-item >
+       <ion-item *ngIf="issued.greeting">
+  <ion-label text-wrap>      Greeting created: {{issued.greeting}}
+  </ion-label>
+       </ion-item>
+       <ion-item>
+    Check 
+      <ion-button fill="clear" size="small" color="primary" (click)="getaddressbalance()"> Greeting balance</ion-button>
+       </ion-item>
+      <ion-item *ngIf="addressbalance">
+  <ion-label>
+     <h4> Greeting Balance: {{addressbalance.balanceSat}} </h4>
+<p> Unconfirmed : {{addressbalance.unconfirmedBalanceSat }} </p>
+  </ion-label>
+      </ion-item >
+      <ion-item >
+  <ion-label text-wrap>
+     Transaction id: {{txid}}
+  </ion-label>
+      </ion-item >
+      </ion-card-content >
+    </ion-card >
 
 
 
@@ -93,12 +122,12 @@
       <ion-card-header>
       <ion-card-title>
      Sendable Greeting 
- <ion-chip (click)="printcheck()" >
+ <!-- ion-chip (click)="printcheck()" >
   <ion-label>Print</ion-label>
    </ion-chip>
  <ion-chip (click)="sharecheck()" >
   <ion-label>Share</ion-label>
-   </ion-chip>
+   </ion-chip -->
 
       </ion-card-title>
       </ion-card-header>
@@ -126,8 +155,22 @@
 
       </ion-card-content>
     </ion-card>
-      <ion-item >
+
+ <ion-card >
+     <ion-card-header >
+    Wallet 
+      <ion-button fill="clear" size="small" color="primary" (click)="getwalletbalance()"> Balance Check</ion-button>
+      </ion-card-header >
+
+      <ion-item *ngIf="walletbalance" >
+  <ion-label>
+     <h4> Wallet Balance: {{walletbalance.balanceSat}} </h4>
+<p> Unconfirmed : {{walletbalance.unconfirmedBalanceSat }} </p>
+  </ion-label>
       </ion-item >
+
+    </ion-card>
+
 
 
 </div>

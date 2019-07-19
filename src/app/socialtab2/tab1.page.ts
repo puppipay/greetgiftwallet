@@ -3,6 +3,10 @@ import { ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import * as jspdf from 'jspdf'; 
 import html2canvas from 'html2canvas';
+import { Blue022IssueService } from '../tab3/blue022.issue.service';
+import { QRCode, ErrorCorrectLevel, QRNumber, QRAlphaNum, QR8BitByte, QRKanji } from 'qrcode-generator-ts/js';
+
+
 
 
 @Component({
@@ -17,15 +21,33 @@ export class Tab1Page implements OnInit{
 
 printingdata: any;
 printingmessage: string;
+qrstring: string;
 
 public whichsegment = "receive";
 
 constructor(
 	private storage: Storage,
+	private blue022issue: Blue022IssueService,
   ) {
   this.loadprintingdata() ;
 }
 
+
+getqrcode () {
+// https://github.com/kazuhikoarase/qrcode-generator/blob/master/ts/src/ts/test.ts
+
+var qr = new QRCode();
+    qr.setTypeNumber(5);
+    qr.setErrorCorrectLevel(ErrorCorrectLevel.L);
+    qr.addData(new QRNumber('0123') ); // Number only
+    qr.addData(new QRAlphaNum('AB5678CD') ); // Alphabet and Number
+    qr.addData(new QR8BitByte('[8BitByte :)]') ); // most useful for usual purpose.
+    qr.addData('[here is 8BitByte too]');
+    qr.addData(new QRKanji('漢字') ); // Kanji(SJIS) only
+    qr.make();
+
+ this.qrstring = qr.toDataURL() ;
+}
 
 captureScreen()
 {
@@ -57,7 +79,9 @@ loadprintingdata() {
         if(data) {
         this.printingdata = data;
 
-    this.printingmessage = "Dear  \r\n" + " %0A %0A  " + this.printingdata.greeting +  "%0A %0A \r\n"+  "My gift is in  "  + this.printingdata.shorturl +  "%0A %0A \r\n "+ " PIN to accept is: " + this.printingdata.pin + " %0A %0A \r\n "  + " Amount enclosed is " + this.printingdata.amount + " Satoshis " + " \r\n %0A  %0A Good day %0A %0A \r\n";
+        this.getqrcode();
+
+    this.printingmessage = "\r\n" +  this.printingdata.greeting.substring(0, this.printingdata.greeting.length-2)  +  "\r\n"+  "My gift is in :   "  + this.printingdata.shorturl +  "\r\n "+ "PIN to accept gift is: " + this.printingdata.pin + "\r\n"  + "Amount enclosed is " + this.printingdata.amount + " Satoshis " + "\r\n    Good day   \r\n";
 
 
         }

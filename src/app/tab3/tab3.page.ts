@@ -27,6 +27,7 @@ public toaddress: string;
 public greetingtomake: string;
 public toamount: number;
 public txid: string;
+public modeautomatic = true;
 
 
 constructor(
@@ -76,6 +77,42 @@ ionViewWillEnter() {
 wiftoaddress() {
 
   this.walletaddress = dashcore.PrivateKey.fromWIF(this.walletwif ).toAddress(dashcore.Networks.testnet).toString();
+
+}
+
+prepareautomatic() {
+
+    if(!this.greetingtomake || this.greetingtomake.length < 5) {
+      alert("Enter greeting to make");
+      return;
+    }
+
+    var data = {
+      msgtype: "greeting",
+      greeting: this.greetingtomake,
+      network: "testnet"
+    };
+
+   this.blue022issue.issuegreetingmessage(data).then((data: any) => {
+      if(data != null)
+      {
+        this.issued = data;
+        this.blue022issue.savesendinggreeting(this.issued);
+        this.sendpayment() ;
+      }
+      else {
+        //alert("Issue failed");
+      }
+   }, (err)=> {
+     alert (err._body)
+   });
+
+
+}
+
+modemanual() {
+
+  this.modeautomatic = false;
 
 }
 
@@ -132,11 +169,22 @@ if(!this.issued.address) {
 
 sharingdata() {
 
+  var amount;
+
+  if(this.addressbalance.balanceSat > 0) 
+  {
+     amount = this.addressbalance.balanceSat;
+  }
+  else 
+  {
+     amount = this.addressbalance.unconfirmedBalanceSat;
+  }
+
   var sharingdata = {
      shorturl : this.issued.shorturl,
      pin : this.issued.pin,
      greeting : this.issued.greeting,
-     amount : this.addressbalance.balanceSat
+     amount : amount
   };
 
   this.storage.set('sharingdata',sharingdata);

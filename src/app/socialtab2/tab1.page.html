@@ -27,44 +27,34 @@
 
 
 
-<ion-content >
+<ion-content align-center >
 
 
-    <ion-card class="datainput">
-      <ion-card-header>
-      <ion-card-title>
-     Edit the greeting (optional)
-      </ion-card-title>
-      </ion-card-header>
-      <ion-card-content >
-            <ion-item>
-            <ion-textarea rows="8" text-wrap type="text" [(ngModel)]="printingmessage"
-                          ></ion-textarea>
-            </ion-item>
-   
+    <ion-card>
+   <ion-label> <h3> {{printingmessage}}
+   </h3>
+   </ion-label>
 
+   <img src="{{qrstring}}">
+   {{qrstring}}
+    </ion-card >
 
-      </ion-card-content>
-    </ion-card>
-      <ion-item >
- <ion-button fill="clear" size="small" color="primary" (click)="gettestnetbalance()"> Print </ion-button>
- <ion-button fill="clear" size="small" color="primary" (click)="captureScreen()"> Download </ion-button>
-      </ion-item >
 
     <ion-card class="datainput">
       <ion-card-content>
 
             <ion-item>
 	QR code
-<div class="qrcode" *ngIf="printingdata" id="contentToConvert">
+
+<!--div class="qrcode" *ngIf="printingdata" id="contentToConvert">
 
     <qrcode [qrdata]="printingdata.shorturl" [size]="256" [level]="'M'"></qrcode>
 
-</div>
+</div -->
             </ion-item>
 
       </ion-card-content>
+ <ion-button fill="clear" size="small" color="primary" (click)="gettestnetbalance()"> Print </ion-button>
     </ion-card>
-
 
 </ion-content>
