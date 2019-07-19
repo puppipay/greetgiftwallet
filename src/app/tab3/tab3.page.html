@@ -42,7 +42,8 @@
        </ion-item>
        <ion-item>
       <ion-button fill="clear" size="small" color="primary" (click)="prepareautomatic()"> Prepare+  </ion-button>
-      <ion-button fill="clear" size="small" color="primary" (click)="modemanual()"> Manual mode  </ion-button>
+      <ion-button *ngIf="modeautomatic" fill="clear" size="small" color="primary" (click)="modemanual()"> Manual mode  </ion-button>
+      <ion-button *ngIf="!modeautomatic" fill="clear" size="small" color="primary" (click)="switchmodeautomatic()"> Cancel manual mode  </ion-button>
        </ion-item>
     </ion-card-content >
   </ion-card >

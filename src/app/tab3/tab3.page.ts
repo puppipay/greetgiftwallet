@@ -116,6 +116,11 @@ modemanual() {
 
 }
 
+switchmodeautomatic() {
+
+  this.modeautomatic = true;
+
+}
 
 
 generatetestnet() {
